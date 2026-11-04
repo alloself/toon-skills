@@ -1,0 +1,30 @@
+{
+  "name": "toon-skills",
+  "description": "Skills for consistent cartoons with Claude Code, Higgsfield Seedance 2.5, Blender and Archcore: setup, bible, grill, episode, layout, sequence, review, assemble.",
+  "version": "0.1.0",
+  "author": {
+    "name": "alloself"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/alloself/toon-skills",
+  "repository": "https://github.com/alloself/toon-skills",
+  "mcpServers": {
+    "higgsfield": {
+      "type": "http",
+      "url": "https://mcp.higgsfield.ai/mcp"
+    }
+  },
+  "keywords": [
+    "claude-code",
+    "skills",
+    "animation",
+    "cartoon",
+    "blender",
+    "higgsfield",
+    "seedance",
+    "archcore",
+    "ai-video",
+    "previs",
+    "layout"
+  ]
+}

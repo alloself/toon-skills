@@ -1,0 +1,16 @@
+{
+  "name": "toon-skills",
+  "owner": {
+    "name": "alloself"
+  },
+  "metadata": {
+    "description": "Skills for consistent cartoons with Claude Code, Higgsfield Seedance 2.5, Blender and Archcore."
+  },
+  "plugins": [
+    {
+      "name": "toon-skills",
+      "source": "./",
+      "description": "Blender plans the shots (positions, scale, camera, cuts), Seedance 2.5 draws the acting from character sheets and capsule references, Archcore documents the series as you work."
+    }
+  ]
+}

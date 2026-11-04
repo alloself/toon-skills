@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+node_modules/
+# test output; projects keep their own renders and takes
+render/
+takes/
+cuts/
+*.blend1

@@ -1,0 +1,81 @@
+# toon.yaml: project passport for toon-skills. Lives in the project root.
+# toon-setup writes it; every toon-* skill reads it first. Paths are relative to this file
+# unless absolute. Field reference: toon-setup/references/passport.md
+
+series:
+  title: "Example Series"
+  language: en                  # language of chat with the owner and of every Archcore doc body
+  style: >-
+    2D storybook cartoon, soft cel shading, warm muted palette, thick clean outlines,
+    painted forest backgrounds
+  aspect: "16:9"
+  fps: 24
+
+characters:                     # one entry per recurring character; order fixes capsule colours
+  - key: fox
+    name: "Fox"
+    blender: CHR_fox            # character root object in the .blend
+    prompt: >-
+      small red fox, cream chest, green knitted scarf, big amber eyes
+    sheet: { file: bible/fox_sheet.png, media: null, doc: character-fox }
+  - key: owl
+    name: "Owl"
+    blender: CHR_owl
+    prompt: "round grey owl, tiny round glasses, brown waistcoat"
+    sheet: { file: bible/owl_sheet.png, media: null, doc: character-owl }
+
+locations:
+  - key: glade
+    name: "Forest glade"
+    prompt: "sunny forest glade with a shallow stream and a fallen log"
+    plate: { file: bible/glade_plate.png, media: null, doc: location-glade }
+
+blender:
+  file: layout/ep01.blend       # working file; skills read it and never save it
+  access:
+    kind: mcp                   # mcp | headless
+    tool: execute_blender_code  # the MCP tool that runs Python (kind: mcp)
+    exe: null                   # blender executable (kind: headless); null = "blender" on PATH
+  char_prefix: CHR_
+  camera_prefix: CAM_
+  prop_prefix: PRP_
+  seq_prefix: SEQ_              # a marker without a camera named SEQ_* forces a new sequence
+  char_names: []                # extra character roots without the prefix, e.g. [BEAVER_root]
+  prop_names: []                # extra props without the prefix, e.g. [plank_03]
+  marker_regex: '^(?P<scene>[A-Za-z]+\d+)_(?P<num>\d+[A-Za-z]?)_(?P<desc>.+)$'
+  exchange_dir: render/toon     # where Blender writes references (path as Blender sees it)
+  exchange_dir_local: null      # the same folder as this agent sees it, if Blender runs elsewhere
+
+higgsfield:
+  video_model: seedance_2_5     # confirm with models_explore
+  video_mode: omni_reference    # character sheets + plates + Blender reference video
+  draft: true                   # drafts first; approved drafts become finals via draft_job_id
+  resolution_draft: 480p        # used only when draft mode is unavailable
+  resolution_final: 1080p
+  generate_audio: false
+  image_model: nano_banana_pro  # only for missing sheets and plates, never per shot
+  folder: null                  # Higgsfield folder id for this series, if used
+
+archcore:
+  root: .                       # folder that holds .archcore/
+  language: en
+
+output:
+  bible: bible                  # character sheets and location plates
+  refs: render/toon             # Blender references, as this agent sees them
+  takes: takes                  # downloaded drafts and finals
+  cuts: cuts                    # assembled scenes
+
+budget:
+  confirm_per: scene            # scene | batch: one "yes" covers one scene or one named batch
+  max_retries: 2                # regenerations per sequence inside an approved batch
+  min_balance: 50               # warn when the balance would drop below this
+
+pipeline:
+  reference_mode: capsule       # capsule | frozen | hidden | full; the pilot ADR may change it
+  props: show                   # show | hide props in the reference
+  sequence_target: [8, 15]      # preferred sequence length, seconds
+  sequence_max: 30              # longest generation; keep within the model limit
+  sequence_min: 4               # shortest generation the model accepts
+  min_shot_seconds: 0.5         # check warns below this
+  jump_m: 0.3                   # continuity: allowed root jump between shots of one scene
